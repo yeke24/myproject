@@ -20,10 +20,13 @@ struct stSignDate
     string  format;
 };
 
-void formatSignDate(time_t rawtime, stSignDate& signDate)
+void formatSignDate(stSignDate& signDate)
 {
+    time_t rawtime;
     struct tm * timeinfo;
     char timebuf[80];
+
+    time(&rawtime);
 
     timeinfo = localtime(&rawtime);
 
