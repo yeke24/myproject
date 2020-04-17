@@ -82,7 +82,7 @@ int main(int argc,char* argv[])
     //id 20位
     long int id= snowflake::instance()->get_unique_id();   
 
-    snprintf(billstr,sizeof(billstr),"%s%ld",signDate.format,id);
+    snprintf(billstr,sizeof(billstr),"%s%ld",signDate.format.c_str(),id);
 
     cout<<"billid:"<<billstr<<endl;
     cout<<"billid lenth:"<<sizeof(billstr)<<endl;
