@@ -11,47 +11,44 @@ using namespace std;
 
 struct stSignDate
 {
-    int     year;
-    int     month;
-    int     day;
-    int     week;
-    int     weeks;  // 一年的第几周
-    time_t  ts;
-    string  format;
+    int     year;
+    int     month;
+    int     day;
+    int     week;
+    int     weeks;  // 一年的第几周
+    time_t  ts;
+    string  format;
 };
 
-void formatSignDate(stSignDate& signDate)
+void formatSignDate(time_t rawtime, stSignDate& signDate)
 {
-    time_t rawtime;
-    struct tm * timeinfo;
-    char timebuf[80];
+    struct tm * timeinfo;
+    char timebuf[80];
 
-    time(&rawtime);
+    timeinfo = localtime(&rawtime);
 
-    timeinfo = localtime(&rawtime);
+    signDate.ts = rawtime;
 
-    signDate.ts = rawtime;
+    memset(timebuf, 0, sizeof(timebuf));
 
-    memset(timebuf, 0, sizeof(timebuf));
-
-    if (strftime(timebuf, sizeof(timebuf), "%W", timeinfo) != 0) {
-        signDate.weeks = atoi(timebuf);
-    }
+    if (strftime(timebuf, sizeof(timebuf), "%W", timeinfo) != 0) {
+        signDate.weeks = util::StringToNumber<int>(timebuf);
+    }
 
 
-    memset(timebuf, 0, sizeof(timebuf));
+    memset(timebuf, 0, sizeof(timebuf));
 
-    if (strftime(timebuf, sizeof(timebuf), "%u", timeinfo) != 0) {
-        signDate.week = atoi(timebuf);
-    }
+    if (strftime(timebuf, sizeof(timebuf), "%u", timeinfo) != 0) {
+        signDate.week = util::StringToNumber<int>(timebuf);
+    }
 
-    signDate.year = timeinfo->tm_year + 1900;
-    signDate.month = timeinfo->tm_mon + 1;
-    signDate.day = timeinfo->tm_mday;
+    signDate.year = timeinfo->tm_year + 1900;
+    signDate.month = timeinfo->tm_mon + 1;
+    signDate.day = timeinfo->tm_mday;
 
-    char buf[12];
-    snprintf(buf, sizeof(buf),"%02d%02d%02d%02d%02d", signDate.year, signDate.month, signDate.day, timeinfo->tm_hour, timeinfo->tm_min);
-    signDate.format = buf;
+    char buf[12];
+    snprintf(buf, sizeof(buf),"%04d%02d%02d%02d%02d%02d", signDate.year, signDate.month, signDate.day, timeinfo->tm_hour, timeinfo->tm_min, timeinfo->tm_sec);
+    signDate.format = buf;
 }
 
 int main(int argc,char* argv[])
