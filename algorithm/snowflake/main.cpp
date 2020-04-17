@@ -32,14 +32,14 @@ void formatSignDate(time_t rawtime, stSignDate& signDate)
     memset(timebuf, 0, sizeof(timebuf));
 
     if (strftime(timebuf, sizeof(timebuf), "%W", timeinfo) != 0) {
-        signDate.weeks = util::StringToNumber<int>(timebuf);
+        signDate.weeks = atoi(timebuf);
     }
 
 
     memset(timebuf, 0, sizeof(timebuf));
 
     if (strftime(timebuf, sizeof(timebuf), "%u", timeinfo) != 0) {
-        signDate.week = util::StringToNumber<int>(timebuf);
+        signDate.week = atoi(timebuf);
     }
 
     signDate.year = timeinfo->tm_year + 1900;
