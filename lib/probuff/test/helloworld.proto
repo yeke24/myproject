@@ -1,0 +1,9 @@
+syntax = "proto3";
+
+package lm;
+message helloworld
+{
+   int32 id=1;  //id
+   string str=2; //name
+   //optional int32 opt=3; //optional field 
+}

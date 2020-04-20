@@ -1,0 +1,42 @@
+syntax = "proto3";
+package pt;
+option optimize_for = LITE_RUNTIME;
+
+message req_login
+{
+	string username =1;
+	string password =2;
+}
+
+message obj_user_info
+{
+	string nickname =1; //昵称
+	string icon =2; //头像
+	int64 coin =3; //金币
+	string location =4; //所属地
+}
+
+message obj_user_game_record
+{
+   string time =1;
+   int32 kill =2;
+   int32 dead =3;
+   int32 assist =4;
+}
+
+message rsp_login
+{
+   enum RET
+   {
+	SUCCESS =0;
+	ACCOUNT_NULL =1;
+	ACCOUNT_LOCK =2;
+	PASSWORD_ERROR=3;
+	ERROR =10;
+    }
+    
+    int32 ret=1;
+    obj_user_info user_info=2;
+    repeated obj_user_game_record record=3;
+}
+

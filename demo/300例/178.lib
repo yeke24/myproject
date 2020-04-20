@@ -1,0 +1,7 @@
+#define ADD_API_declspec(dllexport)
+#include "178.h"
+
+double Add(double a, double b)
+{
+return a+b;
+}
