@@ -36,8 +36,8 @@ void quicksort(int *arr, int left, int right )
 			if(i<j)
 			{
 				int m=arr[j];
-                                arr[j]=arr[i];
-                                arr[i]=m;
+                arr[j]=arr[i];
+                arr[i]=m;
 				j--;
 			}
 		}
