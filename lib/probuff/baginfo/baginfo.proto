@@ -1,0 +1,56 @@
+syntax = "proto3";
+package pt;
+option optimize_for = LITE_RUNTIME;
+
+message obj_domain
+{
+	string baseurl =1;
+	string soundbase =2;
+}
+
+message single_bag_info
+{
+	int32 bagid =1;
+	string name =2;
+	string image =3;
+	string sceneurl =4;
+	string url1 =5;
+	string opertime =6;
+	string mtime =7;
+	string uptime =8;
+	string image800 =9;
+	string nameimg =10;
+	int32 subtype =11;
+	string scenetime =12;
+	string forcetime =13;
+	string source_type =14;
+	string subtitle =15;
+	int32 buy =16;
+	int32 vip =17;
+	string ejlogo =18;
+	int32 cnum =19;
+	int32 beginversion =20;
+	int32 Fendversion =21;
+	int32 oriprice =22;
+	int32 price =23;
+	int32 coin =24;
+	int32 vipprice =25;
+	int32 bt =26;
+	int32 ptype =27;
+	string purl =28;
+	string vurl =29;
+
+}
+
+message bag_info_list
+{
+	enum RET
+	{
+		SUCCESS =0;
+		ERROR =10;
+	}
+
+    int32 ret=1;
+    obj_domain domain=2;
+	repeated single_bag_info bag_info=3;
+}

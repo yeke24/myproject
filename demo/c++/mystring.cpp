@@ -29,7 +29,7 @@ String::~String(void)
  
 String::String(const char* str)    //普通构造函数
 {
- cout<<construct<<endl;
+ cout<<"construct"<<endl;
  if(str==NULL)        //如果str 为NULL，就存一个空字符串“”
 {
   m_string=new char[1];

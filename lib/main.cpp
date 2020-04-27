@@ -20,7 +20,6 @@ int main()
     Json::Reader  reader;
     Json::Value   value;
 
-
     if(reader.parse(test,value))
     {
 
