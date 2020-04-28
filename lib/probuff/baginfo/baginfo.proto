@@ -30,7 +30,7 @@ message single_bag_info
 	string ejlogo =18;
 	int32 cnum =19;
 	int32 beginversion =20;
-	int32 Fendversion =21;
+	int32 endversion =21;
 	int32 oriprice =22;
 	int32 price =23;
 	int32 coin =24;

@@ -1,22 +1,27 @@
 #include<iostream>
-#include<string>
-#include <json/json.h>
-#include<glog/logging.h>
+using namespace std;
 
-#include "game.pb.h"
+#include<fstream>
+#include<string>
+#include "json/json.h"
+//#include<glog/logging.h>
+
+#include "baginfo.pb.h"
 
 using namespace std;
 char sConfigFile[256] = {0};
 
-int main()
+int main(int argc,char* argv[])
 {
     
-    if(2 != argc)
+    if(3 != argc)
     {
-        cout<<"main need cfgfile:"<<argv[0]<<endl;
+        cout<<"main need cinfile and outfile :"<<argv[0]<<endl;
         return 0;
     }
     snprintf(sConfigFile,sizeof(sConfigFile),"%s",argv[1]); 
+
+   // string str=sConfigFile;
 
     ifstream ifs_(sConfigFile);
     string line_;
@@ -29,8 +34,8 @@ int main()
     if(line_.empty())
         return 0;
 
-    pt::bag_info_list rsp{};
-    rsp.set_ret(pt::bag_info_list_RET_SUCCESS);
+    mypt::bag_info_list rsp{};
+    rsp.set_ret(mypt::bag_info_list_RET_SUCCESS);
 
     Json::Reader  reader;
     Json::Value   value;
@@ -39,48 +44,66 @@ int main()
     {
         Json::Value& ref =value["domain"];
 
-        pt::obj_domain domain = rsp.mutable_obj_domain();
- 
+        //auto domain = rsp.mutable_domain();
+	mypt::obj_domain *domain = rsp.mutable_domain();
+
         domain->set_baseurl(ref.get("baseurl","").asString());
         domain->set_soundbase(ref.get("soundbase","").asString());
 
-        //value["bag_info"];
-        cout<<"baseurl"<<ref.get("baseurl","").asString()<<endl;
-        cout<<"soundbase"<<ref.get("soundbase","").asString()<<endl;
-        //Json::Value& ref =value["domain"];
-    }
-/*    auto user_info = rsp.mutable_user_info();
-    user_info->set_nickname("dsw");
-    user_info->set_icon("345DS55GF34D774S");
-    user_info->set_coin(2000);
-    user_info->set_location("zh");*/
-/*
-    for (int i = 0; i < 5; i++) {
-        //auto bag_info = rsp.add_bag_info();
-        pt::single_bag_info bag_info = rsp.add_bag_info();
-        bag_info->set_time();
-        bag_info->set_kill();
-        bag_info->set_dead(i * 2);
-        bag_info->set_assist(i * 5);
-    }
+	//cout<<"baseurl"<<ref.get("baseurl","").asString()<<endl;
+        //cout<<"soundbase"<<ref.get("soundbase","").asString()<<endl;
+	
+	Json::Value& vlist =value["bag_info"];
 
-    std::string buff{};
-    rsp.SerializeToString(&buff);
+	//cout<<"size:"<<vlist.size()<<endl;
+	for(size_t i=0;i<vlist.size();i++)
+	{
+	    auto bag_info = rsp.add_bag_info();
+	    Json::Value& baginfo =vlist[i];
 
-    std::cout<<"####"<<std::endl;
-    std::cout<<buff<<std::endl;
-    std::cout<<"####"<<std::endl;
+	    //baginfo.get("bagid",0).asInt()
+            //baginfo.get("name","").asString()
 
-    pt::rsp_login rsp2{};
-    if (!rsp2.ParseFromString(buff)) {
-        std::cout << "parse error\n";
-    }
-    auto temp_user_info = rsp2.user_info();
-    std::cout << "nickname:" << temp_user_info.nickname() << std::endl;
-    std::cout << "coin:" << temp_user_info.coin() << std::endl;
-    for (int m = 0; m < rsp2.record_size(); m++) {
-        auto temp_record = rsp2.record(m);
-        std::cout << "time:" << temp_record.time() << " kill:" << temp_record.kill() << " dead:" << temp_record.dead() << " assist:" << temp_record.assist() << std::endl;
-    }*/
+            bag_info->set_bagid(baginfo.get("bagid",0).asInt());
+            bag_info->set_name(baginfo.get("name","").asString());
+            bag_info->set_image(baginfo.get("image","").asString());
+            bag_info->set_sceneurl(baginfo.get("sceneurl","").asString());
+            bag_info->set_url1(baginfo.get("url1","").asString());
+            bag_info->set_opertime(baginfo.get("opertime","").asString());
+            bag_info->set_mtime(baginfo.get("mtime","").asString());
+            bag_info->set_uptime(baginfo.get("uptime","").asString());
+            bag_info->set_image800(baginfo.get("image800","").asString());
+            bag_info->set_nameimg(baginfo.get("nameimg","").asString());
+            bag_info->set_subtype(baginfo.get("subtype",0).asInt());
+            bag_info->set_scenetime(baginfo.get("scenetime","").asString());
+            bag_info->set_forcetime(baginfo.get("forcetime","").asString());
+            bag_info->set_source_type(baginfo.get("source_type","").asString());
+            bag_info->set_subtitle(baginfo.get("subtitle","").asString());
+            bag_info->set_buy(baginfo.get("buy",0).asInt());
+            bag_info->set_vip(baginfo.get("vip",0).asInt());
+            bag_info->set_ejlogo(baginfo.get("ejlogo","").asString());
+            bag_info->set_cnum(baginfo.get("cnum",0).asInt());
+            bag_info->set_beginversion(baginfo.get("beginversion",0).asInt());
+            bag_info->set_endversion(baginfo.get("Fendversion",0).asInt());
+            bag_info->set_oriprice(baginfo.get("oriprice",0).asInt());
+            bag_info->set_price(baginfo.get("price",0).asInt());
+            bag_info->set_coin(baginfo.get("coin",0).asInt());
+            bag_info->set_vipprice(baginfo.get("vipprice",0).asInt());
+            bag_info->set_bt(baginfo.get("bt",0).asInt());
+            bag_info->set_ptype(baginfo.get("ptype",0).asInt());
+            bag_info->set_purl(baginfo.get("purl","").asString());
+            bag_info->set_vurl(baginfo.get("vurl","").asString());		
 
+	}
+
+   }
+
+    string buffer;
+    string outf=argv[2];
+	
+    fstream output(outf,ios::out|ios::binary);
+    rsp.SerializeToString(&buffer); //用这个方法，通常不用SerializeToOstream
+    output.write(buffer.c_str(),buffer.size());
+
+    return 0;
 }
