@@ -55,6 +55,14 @@ int main()
 	
 	LOG(INFO)<<val;
 	
+    string mystr="yeye";
+    Json::Value arrv(Json::arrayValue);
+    arrv.append(mystr);
+    arrv.append("keke");
+    Json::Value myv="yeke";
+    arrv.append(myv);
+    LOG(INFO)<<arrv;
+
 	
 	Json::Value va(Json::objectValue);
 	Json::Value valPay(Json::objectValue);
@@ -82,9 +90,14 @@ int main()
 	v[a]=9;
 	valPay["al"]=v;
 	LOG(INFO)<<valPay;
+
+
+	strContent = "";
+    Json::FastWriter writer;
+    strContent = writer.write(val);
 */
 
-	LOG(INFO)<<va;
+	LOG(INFO)<<val;
 return 0;
 }
 

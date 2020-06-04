@@ -27,7 +27,7 @@ void mystack::push(int a)
 
 int mystack::top()
 {
-	return *ve.end();
+	return *ve.rbegin();
 }
 
 void mystack::pop()
