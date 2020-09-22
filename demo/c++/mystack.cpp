@@ -43,7 +43,7 @@ int mystack::minmystack()
 
 	for(itr=ve.begin()+1;itr!=ve.end();itr++)
 	{
-		if(itr*<min)
+		if(*itr<min)
 		{
 			min=*itr;
 		}

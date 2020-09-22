@@ -38,26 +38,26 @@ void findDeleteNode(linkNode* *head,int data)
     linkNode *deleteNode=NULL;
     if((*head)->data==data)
     {
-	deleteNode=*head;
-	(*head)=(*head)->next;
-    }  
+		deleteNode=*head;
+		(*head)=(*head)->next;
+	}  
     else
     {
-	linkNode* tempNode=*head;
-	while(tempNode->next!=NULL && tempNode->next->data!=data)
-		tempNode=tempNode->next;
+		linkNode* tempNode=*head;
+		while(tempNode->next!=NULL && tempNode->next->data!=data)
+			tempNode=tempNode->next;
 
-	if((tempNode->next !=NULL && tempNode->next->data ==data))
-	{
-		deleteNode = tempNode->next;
-		tempNode->next=tempNode->next->next;
-	}
-	
-	if(deleteNode != NULL)
-	{
-		delete deleteNode;
-		deleteNode=NULL;
-	}
+		if((tempNode->next !=NULL && tempNode->next->data ==data))
+		{
+			deleteNode = tempNode->next;
+			tempNode->next=tempNode->next->next;
+		}
+		
+		if(deleteNode != NULL)
+		{
+			delete deleteNode;
+			deleteNode=NULL;
+		}
     }
 }
 
