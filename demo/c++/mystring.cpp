@@ -21,25 +21,25 @@ String::~String(void)
 {
   cout<<"destrcut"<<endl;
   if(m_string!=NULL)                   //不为空，就释放内存
- {
-   delete [] m_string;
-   m_string = NULL;
- }
+  {
+    delete [] m_string;
+    m_string = NULL;
+  }
 }
  
 String::String(const char* str)    //普通构造函数
 {
- cout<<"construct"<<endl;
- if(str==NULL)        //如果str 为NULL，就存一个空字符串“”
-{
-  m_string=new char[1];
-  *m_string ='\0';
-}
-  else
-{
-  m_string = new char[strlen(str)+1] ;   //分配空间
-  strcpy(m_string,str);
-}
+   cout<<"construct"<<endl;
+   if(str==NULL)        //如果str 为NULL，就存一个空字符串“”
+  {
+    m_string=new char[1];
+    *m_string ='\0';
+  }
+    else
+  {
+    m_string = new char[strlen(str)+1] ;   //分配空间
+    strcpy(m_string,str);
+  }
 } 
  
 String::String(const String& other)   //拷贝构造函数
@@ -85,7 +85,7 @@ String & String::operator+=(const String & str)
 } 
 String & String::operator+(const String & s1,const String &s2)
 {
-String res;
+  String res;
   res.m_string=new char[strlen(s1.m_string)+strlen(s2.m_string)+1];
   strcpy(res.m_string,s1.m_string);
   strcat(res.m_string,s2.m_string);

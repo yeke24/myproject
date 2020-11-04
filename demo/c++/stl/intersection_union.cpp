@@ -4,8 +4,28 @@
 
 using namespace std;
 
-int main()
+bool func(int i, int j)
 {
+    return i > j;
+}
+
+int cmp ( const void *a , const void *b )  
+{  
+return *(int *)a - *(int *)b;  
+} 
+
+int main()
+{   
+    int a[] = { 9,5,2,7,6,1,3 };
+    sort(a, a + 7); //默认升序
+    //qsort(a, 7, sizeof(a[0]),cmp);
+    sort(a, a + 7,func); //降序
+    for (int i = 0; i < 7; ++i)
+    {
+        cout << a[i];
+    }
+    cout << endl;
+
     int a1[]={ 1,2,3,4,5,6,7,8 };
     int a2[]={ 5,  7,  9,10 };
 
@@ -53,3 +73,4 @@ int main()
 
    return 0;
 }
+
