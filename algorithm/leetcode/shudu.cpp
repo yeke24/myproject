@@ -40,14 +40,11 @@ public:
     void solveSudoku(vector<vector<char>>& board) {
         // 初始化为false
         solved=false;
+        //memset(row, 0, sizeof(row));
         
         for(int i=0;i<9;i++)
             for(int j=0;j<9;j++)
-            {
-                row[i][j]=false;
-                col[i][j]=false;
-                block[i][j]=false;
-            }        
+                row[i][j]=col[i][j]=block[i][j]=false;      
 
         // 将使用的对应数值置为true
         for (int i = 0; i < 9; i++){

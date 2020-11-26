@@ -13,14 +13,14 @@ while(left<=right)
    //
    if(arr[mid]>key)
    {
-	right=mid-1;
+      right=mid-1;
    }
    else if(arr[mid]<key)
    {
-	left=mid+1;
+	  left=mid+1;
    }
    else
-	return mid;
+	  return mid;
 
 }
 return -1;
